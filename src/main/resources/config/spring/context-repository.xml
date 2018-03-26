@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="euc-kr"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd    
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 어노테이션으로 자동 빈등록  -->
+    <!-- 프로젝트 단위로 추가 -->
+	<context:component-scan base-package="com.board" />
+
+
+	<!-- mybatis 객체 준비 -->
+
+	<!-- !!DBCP 사용 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/gradle-db?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;useSSL=false&amp;serverTimezone=UTC"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="111111"></property>
+    </bean>
+
+	<!-- 스프링에서 마이바티스를 연결하는 부분 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- Alias 별도 설정없이 사용가능하게 해준다. 한번에 -->
+		<property name="typeAliasesPackage" value="com.board.repository.domain" />
+		<!-- mapper를 별도로 설정 안해줘도 된다. 한번에 -->
+		<property name="mapperLocations" value="classpath:config/mapper/user_SQL.xml" />
+	</bean>
+
+
+	<!-- 매퍼 클래스를 한번에 관리해 주는거 -->
+	<!-- 모든 매퍼를  db.repository.mapper 여기서 관리-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.board.repository.mapper" />
+	</bean>
+
+
+	<!-- 트랜잭션 처리 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 트랜잭션 매니저 객체 생성 -->
+	</bean>
+
+	<!-- 어노테이션 방식 -->
+	<!-- 트랜잭션이 필요한 기능은 꼭 어노테이션! -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+
+</beans>

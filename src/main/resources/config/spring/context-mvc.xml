@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context   
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+	<!-- 빈 객체를 자동 등록 처리 -->
+	<!-- kr.co.mlec이 패키지 밑에 작성한 클래스들만 bean등록 가능하다 -->
+	<context:component-scan base-package="com.board" />
+
+	<!-- mvc 관련 객체 등록 작업 진행 : @RequestMapping 애노테이션을 처리등.. -->
+	<mvc:annotation-driven>
+		<mvc:message-converters> <!-- 메세지들 컨버팅 (서블릿에서 에이젝스 화면 출력 사용시 한글 인코딩) -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html; charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html; charset=UTF-8</value>
+						<value>application/json; charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 스프링을 통해 파일을 업로드 하고 싶다면 추가 -->
+	<!--<bean id="multipartResolver"-->
+		<!--class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+		<!--<property name="maxUploadSize" value="10485760" />-->
+	<!--</bean>-->
+
+	<!-- 컨트롤러 없이 서블릿이 별다른 기능없이 단순한 페이지 이동만 -->
+	<!-- path 호출된 주소 일떄/ view-name 여기로 이동만 해준다. -->
+	<!--<mvc:view-controller path="/test/test.do" view-name="test/test"/>-->
+
+	<!-- WEB의 정적 페이지 처리 등을 위해 사용 -->
+	<mvc:default-servlet-handler />
+
+	<!-- 로그인 -->
+	<!--<mvc:interceptors>-->
+		<!--<mvc:interceptor>-->
+			<!--<mvc:mapping path="/**" />-->
+			<!--<mvc:exclude-mapping path="/login/*.do" />-->
+			<!--<mvc:exclude-mapping path="/login/*.json" />-->
+			<!--<mvc:exclude-mapping path="/common/down.do" />-->
+			<!--<mvc:exclude-mapping path="/test/test.do" />-->
+			<!--<mvc:exclude-mapping path="/" />-->
+			<!--<bean class="com.cloud.interceptor.LoginInterceptor" />-->
+		<!--</mvc:interceptor>-->
+	<!--</mvc:interceptors>-->
+
+	<!-- JSP 페이지로 이동 시 아래의 설정 내용을 참고 -->
+	<mvc:view-resolvers>
+		<mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
+	</mvc:view-resolvers>
+
+	<mvc:cors>
+		<mvc:mapping path="/**"/>
+					 <!--allowed-origins="http://localhost:3030, http://127.0.0.1:3030"/>-->
+					 <!--allowed-methods="GET, PUT"-->
+					 <!--allowed-headers="header1, header2, header3"-->
+					 <!--exposed-headers="header1, header2" allow-credentials="false"-->
+					 <!--max-age="123" /> -->
+	</mvc:cors>
+
+</beans>
+
+    
