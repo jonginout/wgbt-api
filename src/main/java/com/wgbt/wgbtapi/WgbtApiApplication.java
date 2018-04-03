@@ -33,6 +33,7 @@ public class WgbtApiApplication {
 				.build();
 	}
 
+	// 스웨거
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("WGBT APP")

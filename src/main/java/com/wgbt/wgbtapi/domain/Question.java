@@ -37,7 +37,7 @@ public class Question extends AbstractEntity{
     */
 
     // 긴 컨텐츠 .... longblob
-    @Lob
+    //@Lob
     @JsonProperty
     private String content;
 

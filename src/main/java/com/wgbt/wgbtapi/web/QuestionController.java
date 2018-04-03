@@ -126,4 +126,7 @@ public class QuestionController {
         return "redirect:/question/"+no;
 
     }
+
+    
+
 }
