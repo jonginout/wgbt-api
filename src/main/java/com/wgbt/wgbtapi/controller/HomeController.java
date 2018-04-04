@@ -1,7 +1,7 @@
-package com.wgbt.wgbtapi.web;
+package com.wgbt.wgbtapi.controller;
 
 import com.wgbt.wgbtapi.domain.Question;
-import com.wgbt.wgbtapi.domain.QuestionRepository;
+import com.wgbt.wgbtapi.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,8 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
 
 @Controller
 public class HomeController {

@@ -1,6 +1,7 @@
-package com.wgbt.wgbtapi.domain;
+package com.wgbt.wgbtapi.repository;
 
 
+import com.wgbt.wgbtapi.domain.Answer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

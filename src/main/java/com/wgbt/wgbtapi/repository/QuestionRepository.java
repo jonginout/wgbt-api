@@ -1,6 +1,7 @@
-package com.wgbt.wgbtapi.domain;
+package com.wgbt.wgbtapi.repository;
 
 
+import com.wgbt.wgbtapi.domain.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

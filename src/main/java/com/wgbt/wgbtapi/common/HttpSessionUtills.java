@@ -1,4 +1,4 @@
-package com.wgbt.wgbtapi;
+package com.wgbt.wgbtapi.common;
 
 import com.wgbt.wgbtapi.domain.User;
 

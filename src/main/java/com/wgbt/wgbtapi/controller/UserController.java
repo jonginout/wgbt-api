@@ -1,9 +1,9 @@
-package com.wgbt.wgbtapi.web;
+package com.wgbt.wgbtapi.controller;
 
 
-import com.wgbt.wgbtapi.HttpSessionUtills;
+import com.wgbt.wgbtapi.common.HttpSessionUtills;
 import com.wgbt.wgbtapi.domain.User;
-import com.wgbt.wgbtapi.domain.UserRepository;
+import com.wgbt.wgbtapi.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,8 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
+
 
     @GetMapping("/login")
     public String loginForm(){
@@ -25,7 +26,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(String id, String pw, HttpSession session){
-        User loginUser = userRepository.findById(id);
+        User loginUser = userService.loginUser(id);
 
         if(loginUser == null || !loginUser.matchPw(pw)){
             System.out.println("로그인 실패");
@@ -49,13 +50,13 @@ public class UserController {
 
     @PostMapping("")
     public String create(User user){
-        userRepository.save(user);
+        userService.signinUser(user);
         return "redirect:/user"; // list로 바로 리다이렉트
     }
 
     @GetMapping("")
     public String list(Model model){
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userService.listUser());
         return "/user/list"; // template 파일 호출
     }
 
@@ -70,7 +71,7 @@ public class UserController {
             throw new IllegalAccessException("You can't update the another user!!");
         }
 
-        model.addAttribute("user", userRepository.findOne(no));
+        model.addAttribute("user", userService.detailUser(no));
         return "/user/updateForm";
     }
 
@@ -85,9 +86,9 @@ public class UserController {
             throw new IllegalAccessException("You can't update the another user!!");
         }
 
-        User user = userRepository.findOne(no);
+        User user = userService.detailUser(no);
         user.update(updateUser);
-        userRepository.save(user);
+        userService.signinUser(user);
         return "redirect:/user";
     }
 

@@ -1,9 +1,10 @@
-package com.wgbt.wgbtapi.web;
+package com.wgbt.wgbtapi.controller;
 
-import com.wgbt.wgbtapi.HttpSessionUtills;
+import com.wgbt.wgbtapi.common.HttpSessionUtills;
 import com.wgbt.wgbtapi.domain.*;
+import com.wgbt.wgbtapi.service.answer.AnswerService;
+import com.wgbt.wgbtapi.service.question.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -17,10 +18,10 @@ import java.util.Map;
 public class ApiAnswerController {
 
     @Autowired
-    AnswerRepository answerRepository;
+    AnswerService answerService;
 
     @Autowired
-    QuestionRepository questionRepository;
+    QuestionService questionService;
 
 
     @PostMapping("")
@@ -29,10 +30,10 @@ public class ApiAnswerController {
             return null;
         }
         User loginUser = HttpSessionUtills.getUserFromSession(session);
-        Question question = questionRepository.findOne(questionNo);
+        Question question = questionService.detailQuestion(questionNo);
         Answer answer = new Answer(loginUser, question, content);
         question.addAnswer();
-        return answerRepository.save(answer);   // save를 했지만 answer 타입이다.
+        return answerService.postAnswer(answer); // save를 했지만 answer 타입이다.
     }
 
 
@@ -49,7 +50,7 @@ public class ApiAnswerController {
             return map;
         }
 
-        Answer answer = answerRepository.findOne(no);
+        Answer answer = answerService.detailAnswer(no);
         User loginUser = HttpSessionUtills.getUserFromSession(session);
         if(!answer.matchWriter(loginUser)){
             map.put("success", false);
@@ -57,11 +58,11 @@ public class ApiAnswerController {
             return map;
         }
 
-        answerRepository.delete(no);
+        answerService.deleteAnswer(no);
         map.put("success", true);
-        Question question = questionRepository.findOne(questionNo);
+        Question question = questionService.detailQuestion(questionNo);
         question.deleteAnswer();
-        questionRepository.save(question);
+        questionService.postQuestion(question);
         return map;
     }
 

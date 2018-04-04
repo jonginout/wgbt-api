@@ -1,10 +1,10 @@
-package com.wgbt.wgbtapi.web;
+package com.wgbt.wgbtapi.controller;
 
-import com.wgbt.wgbtapi.HttpSessionUtills;
+import com.wgbt.wgbtapi.common.HttpSessionUtills;
 import com.wgbt.wgbtapi.domain.Question;
-import com.wgbt.wgbtapi.domain.QuestionRepository;
 import com.wgbt.wgbtapi.domain.Result;
 import com.wgbt.wgbtapi.domain.User;
+import com.wgbt.wgbtapi.service.question.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 public class QuestionController {
 
     @Autowired
-    private QuestionRepository questionRepository;
+    private QuestionService questionService;
 
     private Result isWriter(HttpSession session, Question question){
         if(!HttpSessionUtills.isLoginUser(session)){
@@ -60,7 +60,7 @@ public class QuestionController {
 
         User loginUser = HttpSessionUtills.getUserFromSession(session);
         Question newQuestion = new Question(loginUser, title, content);
-        questionRepository.save(newQuestion);
+        questionService.postQuestion(newQuestion);
         return "redirect:/";
 
     }
@@ -74,7 +74,7 @@ public class QuestionController {
             return "/user/login";
         }
 
-        model.addAttribute("question", questionRepository.findOne(no));
+        model.addAttribute("question", questionService.detailQuestion(no));
         //answerRepository.findByQuestionNo() // 이 방법은 사용 XX // 이때 원투매니 관계를 사용
         return "/qna/detail";
 
@@ -84,7 +84,7 @@ public class QuestionController {
     @GetMapping("/{no}/form")
     public String updateForm(@PathVariable Long no, HttpSession session, Model model){
 
-        Question question = questionRepository.findOne(no);
+        Question question = questionService.detailQuestion(no);
         Result result = isWriter(session, question);
         if(!result.isSuccess()){
             model.addAttribute("errorMessage", result.getErrorMessage());
@@ -100,14 +100,14 @@ public class QuestionController {
             @PathVariable Long no, String title,
             String content, HttpSession session, Model model){
 
-        Question question = questionRepository.findOne(no);
+        Question question = questionService.detailQuestion(no);
         Result result = isWriter(session, question);
         if(!result.isSuccess()){
             model.addAttribute("errorMessage", result.getErrorMessage());
             return "/user/login";
         }
         question.update(title, content);
-        questionRepository.save(question);
+        questionService.postQuestion(question);
         return "redirect:/question/"+no;
 
     }
@@ -116,13 +116,13 @@ public class QuestionController {
     @DeleteMapping("/{no}")
     public String delete( @PathVariable Long no, HttpSession session, Model model){
 
-        Question question = questionRepository.findOne(no);
+        Question question = questionService.detailQuestion(no);
         Result result = isWriter(session, question);
         if(!result.isSuccess()){
             model.addAttribute("errorMessage", result.getErrorMessage());
             return "/user/login";
         }
-        questionRepository.delete(no);
+        questionService.deleteQuestion(no);
         return "redirect:/question/"+no;
 
     }

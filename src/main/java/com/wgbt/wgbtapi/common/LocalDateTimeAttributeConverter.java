@@ -1,4 +1,4 @@
-package com.wgbt.wgbtapi;
+package com.wgbt.wgbtapi.common;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
