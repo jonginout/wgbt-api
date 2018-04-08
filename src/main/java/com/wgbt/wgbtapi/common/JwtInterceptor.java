@@ -1,4 +1,5 @@
 package com.wgbt.wgbtapi.common;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,8 +19,25 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        final String token = request.getHeader(HEADER_AUTH); // Authorization 는 자기 토큰
+        String token = request.getHeader(HEADER_AUTH); // Authorization 는 자기 토큰
 
+        if(token == null){
+            Cookie[] cookies = request.getCookies();
+
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("token")) {
+                        token = cookie.getValue();
+                    }
+                }
+            }
+        }
+
+        if(token==null){
+            token = request.getParameter("token");
+        }
+
+        System.out.println(token);
         if(token != null && jwtService.isUsable(token)){
             return true;
         }else{

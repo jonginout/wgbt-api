@@ -29,10 +29,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addMapping("/**")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "HEAD")
                 .allowedOrigins("*")
-                .allowCredentials(false)
+                .allowCredentials(true)
+                .allowedHeaders("Content-Type", "Authorization")
+                .exposedHeaders("Content-Type", "Authorization")
                 .maxAge(3000);
-//                        .allowedHeaders("application/json")
-//                        .exposedHeaders("header1", "header2")
     }
 }
 

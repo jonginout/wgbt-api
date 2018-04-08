@@ -41,8 +41,7 @@ public class ApiUserController {
     @GetMapping("")
     public Map<String, Object> show(){
         Map<String, Object> map = new HashMap<>();
-        Long userNo = jwtService.getUserNo();
-        System.out.println(userNo);
+        Long userNo = new Long(jwtService.getUserNo()); // 인티저는 Long으로 변환이 안되기 때문에
         User selectedUser = userService.detailUser(userNo);
 
         map.put("success", false);

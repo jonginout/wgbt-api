@@ -76,16 +76,18 @@ public class JwtServiceImpl implements JwtService{
                     .setSigningKey(this.generateKey())
                     .parseClaimsJws(jwt);
             return true;
-
         }catch (Exception e) {
             System.out.println("못쓰는 토큰");
             throw new UnauthorizedException();
+            /*개발환경!!!
+             * return false;*/
         }
     }
 
     @Override
-    public Long getUserNo() {
-        return (Long)this.get("userInfo").get("no");
+    public Integer getUserNo() {
+        System.out.println(this.get("userInfo").toString());
+        return (Integer)this.get("userInfo").get("no");
     }
 
 }

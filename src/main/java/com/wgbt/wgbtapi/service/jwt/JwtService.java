@@ -7,6 +7,6 @@ public interface JwtService {
     Map<String, Object> get(String key);
     boolean isUsable(String jwt);
 
-    Long getUserNo();
+    Integer getUserNo();
 
 }
