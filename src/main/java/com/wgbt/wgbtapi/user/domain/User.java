@@ -23,27 +23,25 @@ public class User extends AbstractEntity {
 
     @Column(nullable = false, length = 20)   // not null    // length
     @JsonProperty   //json으로 반환될때 처리하고 싶은것만 어노테이션 한다 (로 getter setter 이름을 바꿀 수 있다.)
-    @Setter
     private String id;
 
-    @Setter
     private String pw;
 
     @JsonProperty
-    @Setter
     private String name;
 
-//    public void setId(String id) {
-//        this.id = id;
-//    }
-//
-//    public void setPw(String pw) {
-//        this.pw = pw;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
+    @Transient
+    private String save;
+
+    public String getId() {
+        return id;
+    }
+    public String getPw() {
+        return pw;
+    }
+    public String getSave() {
+        return save;
+    }
 
     public void update(User updateUser) {
         this.id = updateUser.id;

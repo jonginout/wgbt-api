@@ -20,7 +20,6 @@ public class AbstractEntity {
     @Id
     @GeneratedValue
     @JsonProperty
-    @Setter
     private Long no;
 
 //    설정파일에

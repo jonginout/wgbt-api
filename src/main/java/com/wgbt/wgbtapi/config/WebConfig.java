@@ -11,8 +11,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     private static final String[] EXCLUDE_PATHS = {
-//            "/**", //개발용
-            "/api/user/make",
+            "/api/user/logout",
+            "/api/user/login",
+            "/api/user/me",
             "/error/**"
     };
 

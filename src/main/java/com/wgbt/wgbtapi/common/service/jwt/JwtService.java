@@ -9,4 +9,6 @@ public interface JwtService {
 
     Integer getUserNo();
 
+    boolean checkNullToken();
+
 }

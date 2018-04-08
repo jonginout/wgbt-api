@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ import java.util.Map;
 public class JwtServiceImpl implements JwtService{
 
     private static final String SALT =  "wgbtSecretToken";
+    private static final String Key =  "userInfo";
 
     @Override
     public <T> String create(String key, T data, String subject){
@@ -75,15 +77,14 @@ public class JwtServiceImpl implements JwtService{
         } catch (Exception e) {
             System.out.println(e.toString());
             System.out.println("값없는 토큰");
-            throw new UnauthorizedException();
-
-			/*개발환경
-			Map<String,Object> testMap = new HashMap<>();
-			testMap.put("memberId", 2);
-			return testMap;*/
+//            throw new UnauthorizedException();
+			Map<String,Object> value = new HashMap<>();
+            value.put("checkToken", false);
+			return value;
         }
         @SuppressWarnings("unchecked")
         Map<String, Object> value = (LinkedHashMap<String, Object>)claims.getBody().get(key);
+        value.put("checkToken", true);
         return value;
     }
 
@@ -105,8 +106,14 @@ public class JwtServiceImpl implements JwtService{
 
     @Override
     public Integer getUserNo() {
-        System.out.println(this.get("userInfo").toString());
-        return (Integer)this.get("userInfo").get("no");
+        if(checkNullToken()){
+            return (Integer)this.get(Key).get("no");
+        }
+        return null;
     }
 
+    @Override
+    public boolean checkNullToken() {
+        return (boolean)this.get(Key).get("checkToken");
+    }
 }
