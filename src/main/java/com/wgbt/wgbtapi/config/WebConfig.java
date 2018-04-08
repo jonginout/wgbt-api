@@ -1,6 +1,6 @@
 package com.wgbt.wgbtapi.config;
 
-import com.wgbt.wgbtapi.common.JwtInterceptor;
+import com.wgbt.wgbtapi.common.interceptor.JwtInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -9,7 +9,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
+
     private static final String[] EXCLUDE_PATHS = {
+//            "/**", //개발용
             "/api/user/make",
             "/error/**"
     };
@@ -35,26 +37,3 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                 .maxAge(3000);
     }
 }
-
-//@Configuration
-//public class WebConfig {
-//
-//    //Global CORS 설정
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurerAdapter() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/api/**")
-//                        .allowedOrigins("*")
-//                        .allowedMethods("PUT", "DELETE", "GET", "POST")
-//                        .allowCredentials(false)
-//                        .maxAge(3000);
-//                        .allowedHeaders("application/json")
-//                        .exposedHeaders("header1", "header2")
-//
-//            }
-//        };
-//    }
-//
-//}
