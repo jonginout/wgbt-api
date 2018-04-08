@@ -56,6 +56,7 @@ public class JwtServiceImpl implements JwtService{
                     .setSigningKey(SALT.getBytes("UTF-8"))
                     .parseClaimsJws(jwt);
         } catch (Exception e) {
+            System.out.println(e.toString());
             System.out.println("값없는 토큰");
             throw new UnauthorizedException();
 
@@ -77,6 +78,7 @@ public class JwtServiceImpl implements JwtService{
                     .parseClaimsJws(jwt);
             return true;
         }catch (Exception e) {
+            System.out.println(e.toString());
             System.out.println("못쓰는 토큰");
             throw new UnauthorizedException();
             /*개발환경!!!
