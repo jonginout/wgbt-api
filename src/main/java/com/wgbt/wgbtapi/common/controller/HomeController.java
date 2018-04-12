@@ -26,7 +26,7 @@ public class HomeController {
             pageNo = 0;
         }
         Pageable pageable = new PageRequest(pageNo, 3, Sort.Direction.DESC, "no");
-        Page<Question> page = questionRepository.findByTitleIgnoreCaseContainingOrderByCreatedDateDesc(query, pageable);
+        Page<Object> page = questionRepository.findByTitleIgnoreCaseContainingOrderByCreatedDateDesc(query, pageable);
 
 //        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //        페이징에 필요는 없지만 이런 기능들도 있다는 것을 보여주기 위해 적어둡니다.

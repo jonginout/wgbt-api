@@ -14,6 +14,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             "/api/user/logout",
             "/api/user/login",
             "/api/user/me",
+            "/api/question/list",
             "/error/**"
     };
 

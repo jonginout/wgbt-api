@@ -3,6 +3,8 @@ package com.wgbt.wgbtapi.question.service;
 import com.wgbt.wgbtapi.question.domain.Question;
 import com.wgbt.wgbtapi.question.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service("questionService")
@@ -24,5 +26,10 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public void deleteQuestion(Long no) {
         questionRepository.delete(no);
+    }
+
+    @Override
+    public Page<Object> listQuestionbyTitle(String query, Pageable pageable) {
+        return questionRepository.findByTitleIgnoreCaseContainingOrderByCreatedDateDesc(query, pageable);
     }
 }

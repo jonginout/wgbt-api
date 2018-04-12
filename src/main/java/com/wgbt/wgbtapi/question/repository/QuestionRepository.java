@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface QuestionRepository extends JpaRepository<Question, Long>{
-    Page<Question> findByTitleIgnoreCaseContainingOrderByCreatedDateDesc(String Title, Pageable pageable);
+    Page<Object> findByTitleIgnoreCaseContainingOrderByCreatedDateDesc(String title, Pageable pageable);
 }
