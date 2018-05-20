@@ -10,5 +10,7 @@ public interface UserService {
     void signinUser(User user);
     List<User> listUser();
     User detailUser(Long no);
+    User idCheckUser(String id);
+    User signUpUser(User user);
 
 }

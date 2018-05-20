@@ -21,7 +21,7 @@ public class User extends AbstractEntity {
     private Long no;
     */
 
-    @Column(nullable = false, length = 20)   // not null    // length
+    @Column(nullable = false, length = 20, unique=true)   // not null    // length
     @JsonProperty   //json으로 반환될때 처리하고 싶은것만 어노테이션 한다 (로 getter setter 이름을 바꿀 수 있다.)
     private String id;
 

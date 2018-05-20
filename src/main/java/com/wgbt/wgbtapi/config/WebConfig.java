@@ -15,7 +15,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             "/api/user/login",
             "/api/user/me",
             "/api/question/list",
-            "/error/**"
+            "/error/**",
+            "/api/user/idCheck",
+            "/api/user/signUp"
     };
 
     @Autowired

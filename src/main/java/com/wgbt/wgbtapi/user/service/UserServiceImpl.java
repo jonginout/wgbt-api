@@ -32,4 +32,10 @@ public class UserServiceImpl implements UserService {
     public User detailUser(Long no) {
         return userRepository.findOne(no);
     }
+
+    @Override
+    public User idCheckUser(String id) { return userRepository.findById(id); }
+
+    @Override
+    public User signUpUser(User user) { return userRepository.save(user); }
 }

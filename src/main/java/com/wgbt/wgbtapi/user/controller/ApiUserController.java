@@ -138,4 +138,34 @@ public class ApiUserController {
         return map;
     }
 
+    @PostMapping("/idCheck")
+    public  Map<String, Object> idCheck(@RequestBody String id) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", false);
+        System.out.println(id);
+        if (userService.idCheckUser(id) == null) map.put("check", true);
+        else map.put("check", false);
+
+        map.put("success", true);
+
+        return map;
+    }
+
+    @PostMapping("/signUp")
+    public  Map<String, Object> signUp(@RequestBody User user) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("success", false);
+
+        if (userService.idCheckUser(user.getId()) == null) {
+            User signUpUser = userService.signUpUser(user);
+            if (signUpUser == null) return map;
+            else {
+                map.put("success", true);
+                map.put("userId", signUpUser.getId());
+            }
+        }
+
+        return map;
+    }
+
 }
