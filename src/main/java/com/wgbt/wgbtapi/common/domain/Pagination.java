@@ -24,6 +24,54 @@ public class Pagination {
         private int nowPage;
 
 
+        public int getBlockPage() {
+                return blockPage;
+        }
+
+        public void setBlockPage(int blockPage) {
+                this.blockPage = blockPage;
+        }
+
+        public Page<Object> getList() {
+                return list;
+        }
+
+        public void setList(Page<Object> list) {
+                this.list = list;
+        }
+
+        public int getFirstPageBlock() {
+                return firstPageBlock;
+        }
+
+        public void setFirstPageBlock(int firstPageBlock) {
+                this.firstPageBlock = firstPageBlock;
+        }
+
+        public int getLastPageBlock() {
+                return lastPageBlock;
+        }
+
+        public void setLastPageBlock(int lastPageBlock) {
+                this.lastPageBlock = lastPageBlock;
+        }
+
+        public int getTotalPage() {
+                return totalPage;
+        }
+
+        public void setTotalPage(int totalPage) {
+                this.totalPage = totalPage;
+        }
+
+        public int getNowPage() {
+                return nowPage;
+        }
+
+        public void setNowPage(int nowPage) {
+                this.nowPage = nowPage;
+        }
+
         public Pagination() {}
         public Pagination(Page<Object> page) {
                 list = page;

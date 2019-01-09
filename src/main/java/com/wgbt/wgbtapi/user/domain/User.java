@@ -62,6 +62,26 @@ public class User extends AbstractEntity {
         return newPw.equals(pw);
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setPw(String pw) {
+        this.pw = pw;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSave(String save) {
+        this.save = save;
+    }
+
     @Override
     public String toString() {
         return "User{" + super.toString() +

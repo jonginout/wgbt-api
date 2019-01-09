@@ -11,13 +11,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     private static final String[] EXCLUDE_PATHS = {
-            "/api/user/logout",
-            "/api/user/login",
-            "/api/user/me",
-            "/api/question/list",
-            "/error/**",
-            "/api/user/idCheck",
-            "/api/user/signUp"
+//            "/api/user/logout",
+//            "/api/user/login",
+//            "/api/user/me",
+//            "/api/question/list",
+//            "/error/**",
+//            "/api/user/idCheck",
+//            "/api/user/signUp",
+//            "/user/login"
+            "/**"
     };
 
     @Autowired

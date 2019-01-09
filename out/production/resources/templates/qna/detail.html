@@ -147,6 +147,7 @@
                 
             },
             success : function (data, status) {
+                console.log(data)
                 // getter 가 아니면 json으로 뽑아내지 못한다. // @JsonProperty
                 var answerTemplate = $("#answerTemplate").html();
                 var template = answerTemplate.format(data.writer.id, data.formattedCreatedDate, data.content, data.question.no, data.no);

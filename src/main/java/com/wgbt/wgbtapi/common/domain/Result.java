@@ -30,4 +30,11 @@ public class Result {
         return new Result(false, errorMessage);
     }
 
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 }
